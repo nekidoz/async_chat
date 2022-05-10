@@ -63,3 +63,4 @@ print(locale.getpreferredencoding())
 with open('test_file.txt', encoding='utf-8') as text_file:
     for line in text_file:
         print(line, end='')
+
