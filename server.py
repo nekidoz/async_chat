@@ -6,11 +6,16 @@ import jim
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser()
-
+parser.add_argument('-address', required=False)
+parser.add_argument('-port', required=False)
+args = parser.parse_args()
+server_address = args.address if args.address else sett.DEFAULT_LISTEN_ADDRESS
+server_port = int(args.port) if args.port else sett.DEFAULT_PORT
+print(f"Listening on {server_address if server_address else '(all)'}:{server_port}")
 
 # Create and bind a socket and listed to connections
 socket = sock.socket(sock.AF_INET, sock.SOCK_STREAM)
-socket.bind((sett.DEFAULT_LISTEN_ADDRESS, sett.DEFAULT_PORT))
+socket.bind((server_address, server_port))
 socket.listen()
 
 # Proccess client messages

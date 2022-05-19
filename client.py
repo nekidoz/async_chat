@@ -1,7 +1,17 @@
 import socket as sock
+import argparse
 
 import settings as sett
 import jim
+
+# Parse command-line arguments
+parser = argparse.ArgumentParser()
+parser.add_argument('address', nargs='?', default=None)
+parser.add_argument('port', nargs='?', default=None)
+args = parser.parse_args()
+server_address = args.address if args.address else sett.DEFAULT_SERVER_ADDRESS
+server_port = int(args.port) if args.port else sett.DEFAULT_PORT
+print(f"Connecting to {server_address if server_address else '(broadcast)'}:{server_port}")
 
 socket = sock.socket(sock.AF_INET, sock.SOCK_STREAM)
 socket.connect((sett.DEFAULT_SERVER_ADDRESS, sett.DEFAULT_PORT))
