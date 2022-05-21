@@ -83,7 +83,7 @@ class Responses(enum.IntEnum):
 # _kwargs - other arguments dictionary
 class Message:
     def __init__(self, action: Actions, **kwargs):
-        self.action = action
+        self.action = Actions(action)
         self.time = kwargs.get("time")
         if not self.time:
             self.time = time.time_ns()
@@ -112,7 +112,7 @@ class Message:
 # _kwargs - other arguments dictionary
 class Response:
     def __init__(self, response: Responses, **kwargs):
-        self.response = response
+        self.response = Responses(response)
         self.time = kwargs.get("time")
         if not self.time:
             self.time = time.time_ns()
