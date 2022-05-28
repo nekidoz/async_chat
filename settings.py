@@ -4,8 +4,12 @@ DEFAULT_PORT = 7777
 DEFAULT_LISTEN_ADDRESS = ''
 DEFAULT_SERVER_ADDRESS = '127.0.0.1'
 DEFAULT_ENCODING = 'UTF-8'
-MAX_DATA_LEN = 4096         # Maximum data size of the JIM message
-CONNECTION_TIMEOUT = 60     # Connection timeout in seconds
+MAX_DATA_LEN = 4096             # Maximum data size of the JIM message
+CONNECTION_TIMEOUT = 60         # Connection timeout in seconds
+SERVER_SOCKET_TIMEOUT = 0.2     # Server socket timeout in seconds
+SERVER_SELECT_TIMEOUT = 1.0     # Server timeout for select.select() function waiting for clients
+SERVER_MAX_CONNECTIONS = 100    # Maximum number of server connections
+CLIENT_SELECT_TIMEOUT = 60.0     # Client timeout for select.select() function waiting for data
 
 DIRECTORY_SEPARATOR = '/'
 
