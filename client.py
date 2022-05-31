@@ -54,14 +54,13 @@ class Client:
             else:
                 log.debug("Получено сообщение от сервера: %s", data)
                 success = True
-        except BrokenPipeError as e:
+        except (BrokenPipeError, ConnectionResetError) as e:
             log.critical(f"Нет соединения с сервером: {e}")
             self._isConnected = False
         return success, data
 
     def send_to_server(self, message: str) -> bool:
         success = False                     # prepare for worse
-        received_ok = False
         log.debug("Отправляется сообщение на сервер: %s", message)
         try:
             self._socket.send(message.encode(sett.DEFAULT_ENCODING))
@@ -109,7 +108,7 @@ class Client:
     def wait_for_message(self):
         while True:                 # wait for data from stdin or server connection
             print("Введите сообщение: ", end="", flush=True)
-            read_ready, _, _ = select.select([sys.stdin, self._socket], [], [], sett.CLIENT_SELECT_TIMEOUT)
+            read_ready, _, _ = select.select([sys.stdin, self._socket], [], []) # , sett.CLIENT_SELECT_TIMEOUT
             if not read_ready:
                 print("")
                 log.debug("Нет новых запросов от существующих соединений.")

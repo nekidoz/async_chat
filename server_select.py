@@ -45,7 +45,7 @@ class Server:
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.bind((self.address, self.port))
-            self.socket.settimeout(sett.SERVER_SOCKET_TIMEOUT)
+            self.socket.settimeout(sett.SERVER_SOCKET_TIMEOUT_SELECT)
             self.socket.listen()
         except OSError as e:
             log.critical("Ошибка инициализации сервера: %s", e)
